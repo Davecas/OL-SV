@@ -1,0 +1,31 @@
+/* Control Street View */
+.street-view-control{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	bottom: 40px;
+	right: 8.4px;
+	width: 20.6px;
+	height: 20.6px;
+	text-fill-color: #eef;
+	-webkit-text-fill-color: #eef;
+	-moz-text-fill-color: #eef;
+	-o-text-fill-color: #eef;
+	-ms-text-fill-color: #eef;
+	text-stroke: 0.28px #46466d;
+	-webkit-text-stroke: 0.28px #46466d;
+	-moz-text-stroke: 0.28px #46466d;
+	-o-text-stroke: 0.28px #46466d;
+	-ms-text-stroke: 0.28px #46466d;
+	border: 3.2px solid rgba(210,210,220,0.60);
+	background-color: rgba(90,96,200,0.86);
+	font-weight: bold;
+	cursor: pointer;
+}
+.cursor-default{
+	cursor: default !important;
+}
+.cursor-sv{
+	cursor: url(../img/street_view_cursor.gif) 7.5 17.5, pointer !important;
+}
