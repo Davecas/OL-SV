@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>open layers 3 Street View</title>
+		<meta charset="utf-8">
+		<!-- CSS -->
+		<style>
+			#div_mapa{
+				width: 80%;
+				height: 80%;
+				margin: 0 auto;
+			}
+		</style>
+		<link rel="stylesheet" type"text/css" href="css/ol.css">
+		<link rel="stylesheet" type="text/css" href="lib/olsv/css/styles.css">
+
+		<!--*********** JAVASCRIPT **********-->
+		<!-- GOOGLE MAPS API -->
+		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js"></script>
+		<!--OPENLAYERS 3 -->
+		<script type="text/javascript" src="lib/ol.js"></script>
+		<script type="text/javascript" src="lib/olsv/ol_sv.js"></script>
+		
+		<script type="text/javascript">
+			"use strict";
+			window.onload = function(){
+
+				var projection = ol.proj.get("EPSG:3857");
+				var projectionExtent = projection.getExtent();
+				var size = ol.extent.getWidth(projectionExtent) / 256;
+				var nivelesDeZoom = 20;
+				var resolutions = new Array(nivelesDeZoom);
+				var matrixIds = new Array(nivelesDeZoom);
+				for (var z = 0; z < nivelesDeZoom; ++z) {
+					resolutions[z] = size / Math.pow(2, z);
+					matrixIds[z] = z;
+				}
+			
+				var tile = new ol.layer.Tile({
+					source: new ol.source.WMTS({
+						attributions: [
+							new ol.Attribution({
+								html: 'Tiles &copy; <a href="http://services.arcgisonline.com/arcgis/rest/' +
+									'services/World_Imagery/MapServer/">ArcGIS</a>'
+							})
+						],
+						url: 'http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer',
+						layer: 'World_Imagery',
+						matrixSet: 'EPSG:3857',
+						format: 'image/png',
+						projection: projection,
+						tileGrid: new ol.tilegrid.WMTS({
+							origin: ol.extent.getTopLeft(projectionExtent),
+							resolutions: resolutions,
+							matrixIds: matrixIds,
+							tileSize: 256
+						}),
+						style: "default"
+					})
+				});
+
+				let div_mapa = document.querySelector("#div_mapa");
+				
+				var mapa = new ol.Map({
+					view: new ol.View({
+						center: [-628900, 4866000],
+						zoom: 5.2
+					}),
+					layers: [tile],
+					target: div_mapa,
+					controls: ol.control.defaults({
+						attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
+							collapsible: true
+						})
+					}),
+					renderer: 'canvas'
+				});
+				
+
+				let sv_control = new ol.streetView.StreetViewControl({
+					map: mapa, // El mapa es obligatorio pasarlo.
+					/*target: target,*/ // Si se desea agregar En un elemento por separado.
+					/*className: "miClase",*/ //Si se desea añadir clases propias para CSS personalizado. Por defecto es 'ol-control street-view-control'
+					update: true, 	// Es opcional. Si no se pasa nada será true.
+									// Si se pasa un valor debe ser booleano.
+					onPositionChange: function(){ // Esta función es opcional.
+						console.log("Cambio de posicion");
+					}
+				});
+			}
+		</script>
+	</head>
+	<body>
+		<div id="div_mapa">
+			<!-- MAPA -->
+		</div>
+	</body>
+</html>

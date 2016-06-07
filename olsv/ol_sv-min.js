@@ -15,7 +15,7 @@ else if(!(options.target instanceof HTMLElement)){throw new TypeError("'target':
 else{options.className="";}}
 else if(typeof options.className!=="string"){throw TypeError("className: Tipo de parametro inválido.");}
 if(!(options.map instanceof ol.Map)){throw new TypeError("'map' debe ser de tipo ol.Map");}
-map=options.map;let mapContainer=map.getTargetElement();initialMapClass=mapContainer.className;mapContainer.className+=" cursor-default";let toggleStreetView=function(ev){if(!isPressed){isPressed=true;mapContainer.className+=" cursor-sv";evtKey=map.on("click",function(ev){let coords=ev.coordinate;let _onPositionChange=options.onPositionChange;ol.streetView.setStreetView({coords:coords,map:map,update:options.update,onPositionChange:_onPositionChange},function(success){if(success){mapContainer.className=initialMapClass;isPressed=false;map.unByKey(evtKey);}});});}
+map=options.map;let mapContainer=map.getTargetElement();initialMapClass=mapContainer.className;mapContainer.className+=" cursor-def";let toggleStreetView=function(ev){if(!isPressed){isPressed=true;mapContainer.className+=" cursor-sv";evtKey=map.on("click",function(ev){let coords=ev.coordinate;let _onPositionChange=options.onPositionChange;ol.streetView.setStreetView({coords:coords,map:map,update:options.update,onPositionChange:_onPositionChange},function(success){if(success){mapContainer.className=initialMapClass;isPressed=false;map.unByKey(evtKey);}});});}
 else{isPressed=false;mapContainer.className=initialMapClass;map.unByKey(evtKey);}}
 let element=document.createElement("div");element.className=options.className;element.id="control-sv";if(options.content===undefined){element.textContent="SV";}
 else if(options.content instanceof HTMLElement){element.appendChild(options.content);}
