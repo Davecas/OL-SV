@@ -1,12 +1,6 @@
 .street-view-control {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	position: absolute;
 	bottom: 40px;
 	right: 8.4px;
-	width: 20.6px;
-	height: 20.6px;
 	text-fill-color: #eef;
 	-webkit-text-fill-color: #eef;
 	-moz-text-fill-color: #eef;
@@ -19,7 +13,7 @@
 	-ms-text-stroke: 0.28px #46466d;
 	border: 3.2px solid rgba(210, 210, 220, 0.60);
 	background-color: rgba(90, 96, 200, 0.86);
-	font-weight: bold;
+	font-weight: 700;
 	cursor: pointer;
 }
 .cursor-def{
